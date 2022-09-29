@@ -30,8 +30,8 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
-app.UseCors(options => options.WithOrigins("http://localhost:3000")
-//app.UseCors(options => options.WithOrigins("http://localhost:44491")
+//app.UseCors(options => options.WithOrigins("http://localhost:3000")
+app.UseCors(options => options.WithOrigins("http://localhost:44491")
 .AllowAnyMethod()
 .AllowAnyHeader());
 

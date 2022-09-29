@@ -6,3 +6,40 @@
 .container tr {
     text-align: center;
 }
+
+.input_field {
+    width: 45%;
+    margin-top: 20px;
+}
+
+    .input_field label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input_field input {
+        padding: 5px;
+    }
+
+.btn_action {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+    .btn_action button {
+        background-color: rgb(75, 139, 75);
+        color: #fff;
+        padding: 7px 20px;
+        height: 60%;
+    }
+
+.containerInput {
+    display: flex;
+    width: 60%;
+    margin: 40px auto;
+}
+
+    .containerInput select {
+        margin-left: 20px;
+    }

@@ -1,0 +1,13 @@
+﻿.field {
+    width: 45%;
+    margin-top: 20px;
+}
+
+    .field label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .field input {
+        padding: 5px;
+    }

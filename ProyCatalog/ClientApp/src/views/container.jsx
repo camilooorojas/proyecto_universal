@@ -9,7 +9,7 @@ function Container() {
         <div>
             <BrowserRouter>
                 <NavBar />
-                <h1> UNIVERSAL </h1>
+                <h1 className="text-center"> UNIVERSAL </h1>
 
                 <Routes>
                     <Route path="/" element={<Product />} />

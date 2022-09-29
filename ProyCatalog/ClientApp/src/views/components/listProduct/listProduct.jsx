@@ -3,6 +3,7 @@ import styles from "./listProductStyles.module.css";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { Field } from "../field/field";
 
 function ListProduct() {
     const URLApi = "http://localhost:5278/api/product";
@@ -11,6 +12,7 @@ function ListProduct() {
     const [modalOpen, setModalOpen] = useState(false);
     const [dataTemp, setDataTemp] = useState({});
     const [search, setSearch] = useState("");
+    const [dropdown, setDropdown] = useState("name");
 
     const [productId, setProductId] = useState(0);
     const [name, setName] = useState("");
@@ -77,10 +79,7 @@ function ListProduct() {
         data.append("price", price);
         data.append("ImageFile", file);
 
-        const res = await axios.put(
-            `${URLApi}/${productId}`,
-            data
-        );
+        const res = await axios.put(`${URLApi}/${productId}`, data);
         setSearch("");
         setModalOpen(false);
         requestGetAll();
@@ -101,31 +100,59 @@ function ListProduct() {
 
     const handleChangeFilter = (e) => {
         setSearch(e.target.value);
-        filterData(e.target.value)
-    }
+        filterData(e.target.value);
+    };
 
     var filterData = (textSearch) => {
         var resSearch = data.filter((element) => {
-            if (element.name.toString().toLowerCase().includes(textSearch.toLowerCase())) {
-                return element
+            if (dropdown === "name") {
+                if (
+                    element.name
+                        .toString()
+                        .toLowerCase()
+                        .includes(textSearch.toLowerCase())
+                ) {
+                    return element;
+                }
+            } else if (dropdown === "description") {
+                if (
+                    element.description
+                        .toString()
+                        .toLowerCase()
+                        .includes(textSearch.toLowerCase())
+                ) {
+                    return element;
+                }
+            } else if (dropdown === "category") {
+                if (
+                    element.category
+                        .toString()
+                        .toLowerCase()
+                        .includes(textSearch.toLowerCase())
+                ) {
+                    return element;
+                }
             }
-
         });
-        console.log("quiero editar", data)
+        console.log("quiero editar", data);
         setDataList(resSearch);
-        console.log("edito?", data)
-    }
+        console.log("edito?", data);
+    };
 
     return (
         <div className={styles.container}>
-            <div className="containerInput">
+            <div className={styles.containerInput}>
                 <input
                     value={search}
                     className="form-control inputBuscar"
                     placeholder="Buscar por nombre, descripcion o categoria."
                     onChange={handleChangeFilter}
                 />
-                <button className="btn btn-success"></button>
+                <select value={dropdown} onChange={(e) => setDropdown(e.target.value)}>
+                    <option value="name">Nombre</option>
+                    <option value="description">Descripcion</option>
+                    <option value="category">Categoria</option>
+                </select>
             </div>
             <table className="table table-bordered">
                 <thead>
@@ -171,57 +198,58 @@ function ListProduct() {
             </table>
 
             <Modal isOpen={modalOpen}>
-                <div className="col-md-6 offset-md-3">
-                    <h3>Nombre:</h3>
-                    <input
-                        required
-                        value={name}
-                        onChange={handleName}
-                        className="form-control"
-                        type="text"
-                        placeholder="Digite nombre del estudiante..."
-                    />
-                    <h3>Descripción:</h3>
-                    <input
-                        required
-                        value={description}
-                        onChange={handleDescription}
-                        className="form-control"
-                        type="text"
-                        placeholder="Digite apellido del estudiante..."
-                    />
-                    <h3>Categoria:</h3>
-                    <input
-                        required
-                        value={category}
-                        onChange={handleCategory}
-                        className="form-control"
-                        type="text"
-                        placeholder="Digite código del estudiante..."
-                    />
-                    <h3>Stock:</h3>
-                    <input
-                        required
-                        value={stock}
-                        onChange={handleStock}
-                        className="form-control"
-                        type="number"
-                        placeholder="Digite cédula del estudiante..."
-                    />
-                    <h3>Precio:</h3>
-                    <input
-                        required
-                        value={price}
-                        onChange={handlePrice}
-                        className="form-control"
-                        type="number"
-                        placeholder="Digite cédula del estudiante..."
-                    />
-                    <h3 className="text-center">Adjuntar Imagen:</h3>
-                    <input type="file" onChange={saveFile} />
-                    <div>
-                        <button onClick={() => editProduct()}>Editar</button>
-                        <button onClick={() => closedModal()}>Cerrar</button>
+                <div className="modalBackground">
+                    <div className="modalContainerField modalContainer">
+                        <Field
+                            valueField={name}
+                            setValueField={setName}
+                            placeholder={"Digite nombre del producto..."}
+                            label={"Nombre:"}
+                            type={"text"}
+                        />
+                        <Field
+                            valueField={description}
+                            setValueField={setDescription}
+                            placeholder={"Digite descripción del producto..."}
+                            label={"Descripción:"}
+                            type={"text"}
+                        />
+                        <Field
+                            valueField={category}
+                            setValueField={setCategory}
+                            placeholder={"Digite categoria del producto..."}
+                            label={"Categoria:"}
+                            type={"text"}
+                        />
+                        <Field
+                            valueField={stock}
+                            setValueField={setStock}
+                            placeholder={"Digite stock del producto..."}
+                            label={"Stock:"}
+                            type={"number"}
+                        />
+                        <Field
+                            valueField={price}
+                            setValueField={setPrice}
+                            placeholder={"Digite description del estudiante..."}
+                            label={"Precio:"}
+                            type={"number"}
+                        />
+                        <div className={styles.input_field}>
+                            <label>
+                                {" "}
+                                Insertar Imagen
+                                <input required type="file" onChange={saveFile} />
+                            </label>
+                        </div>
+                        <div className={styles.btn_action}>
+                            <button className="btn btn-sucess" onClick={() => editProduct()}>
+                                Editar
+                            </button>
+                            <button className="btn btn-sucess" onClick={() => closedModal()}>
+                                Cerrar
+                            </button>
+                        </div>
                     </div>
                 </div>
             </Modal>

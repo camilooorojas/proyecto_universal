@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import { Field } from "../field/field";
 
 function Product() {
     const URLApi = "http://localhost:5278/api/product";
@@ -64,61 +65,58 @@ function Product() {
     };
 
     return (
-        <div className="col-md-6 offset-md-3">
+        <div className={styles.container}>
             <h2 className="text-center">Registro Producto</h2>
             <form onSubmit={sendData} className="form-control">
-                <div className="col-md-6 offset-md-3">
-                    <h3 className="text-center">Nombre:</h3>
-                    <input
-                        required
-                        value={name}
-                        onChange={handleName}
-                        className="form-control"
-                        type="text"
-                        placeholder="Digite nombre del estudiante..."
+                <div className={styles.container_fields}>
+                    <Field
+                        valueField={name}
+                        setValueField={setName}
+                        placeholder={"Digite nombre del estudiante..."}
+                        label={"Nombre:"}
+                        type={"text"}
                     />
-                    <h3 className="text-center">Descripción:</h3>
-                    <input
-                        required
-                        value={description}
-                        onChange={handleDescription}
-                        className="form-control"
-                        type="text"
-                        placeholder="Digite apellido del estudiante..."
+                    <Field
+                        valueField={description}
+                        setValueField={setDescription}
+                        placeholder={"Digite description del estudiante..."}
+                        label={"Descripción:"}
+                        type={"text"}
                     />
-                    <h3 className="text-center">Categoria:</h3>
-                    <input
-                        required
-                        value={category}
-                        onChange={handleCategory}
-                        className="form-control"
-                        type="text"
-                        placeholder="Digite código del estudiante..."
+                    <Field
+                        valueField={category}
+                        setValueField={setCategory}
+                        placeholder={"Digite description del estudiante..."}
+                        label={"Categoria:"}
+                        type={"text"}
                     />
-                    <h3 className="text-center">Stock:</h3>
-                    <input
-                        required
-                        value={stock}
-                        onChange={handleStock}
-                        className="form-control"
-                        type="number"
-                        placeholder="Digite cédula del estudiante..."
+                    <Field
+                        valueField={stock}
+                        setValueField={setStock}
+                        placeholder={"Digite description del estudiante..."}
+                        label={"Stock:"}
+                        type={"number"}
                     />
-                    <h3 className="text-center">Precio:</h3>
-                    <input
-                        required
-                        value={price}
-                        onChange={handlePrice}
-                        className="form-control"
-                        type="number"
-                        placeholder="Digite cédula del estudiante..."
+                    <Field
+                        valueField={price}
+                        setValueField={setPrice}
+                        placeholder={"Digite description del estudiante..."}
+                        label={"Precio:"}
+                        type={"number"}
                     />
-                    <h3 className="text-center">Adjuntar Imagen:</h3>
-                    <input required type="file" onChange={saveFile} />
+                    <div className={styles.input_field}>
+                        <label>
+                            {" "}
+                            Insertar Imagen
+                            <input required type="file" onChange={saveFile} />
+                        </label>
+                    </div>
                 </div>
-                <button type="submit" className="btn btn-sucess">
-                    Registrar
-                </button>
+                <div className={styles.btn_container}>
+                    <button type="submit" className="btn btn-sucess">
+                        Registrar
+                    </button>
+                </div>
             </form>
 
             <Modal isOpen={modalOpen} contentLabel="Example Modal">
