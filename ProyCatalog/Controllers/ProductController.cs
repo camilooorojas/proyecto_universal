@@ -16,7 +16,7 @@ namespace ProyCatalog.Controllers
         private IProductRepository _productRepository;
         private IMapper _mapper;
         private readonly IWebHostEnvironment _hostEnvironment;
-        public ProductController(/*ProductService productService,*/ IProductRepository productRepository, IMapper mapper, IWebHostEnvironment hostEnvironment)
+        public ProductController(IProductRepository productRepository, IMapper mapper, IWebHostEnvironment hostEnvironment)
         {
             _productRepository = productRepository;
             _mapper = mapper;
